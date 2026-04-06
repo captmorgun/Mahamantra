@@ -2,16 +2,19 @@
 <html lang="ru">
     <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, viewport-fit=cover"
+        />
 
-        <!--  primary SEO  -->
+        <!-- Primary SEO -->
         <title>Харе Кришна — Маха-мантра онлайн и счетчик джапы</title>
         <meta
             name="description"
             content="Харе Кришна Маха-мантра онлайн, счетчик джапы и переводы на многих языках. Hare Krishna Maha-Mantra online with japa counter and translations."
         />
 
-        <!--  Open Graph / social  -->
+        <!-- Open Graph / Social -->
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://mahamantra.online" />
         <meta property="og:title" content="Харе Кришна Маха-мантра онлайн" />
@@ -22,41 +25,103 @@
         <meta property="og:locale" content="ru_RU" />
         <meta property="og:locale:alternate" content="en_US" />
 
-        <!-- ШРИФТЫ -->
+        <!-- Theme color (JS обновит при смене темы) -->
+        <meta name="theme-color" content="#f5f5f7" />
+
+        <!-- PWA -->
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Маха-мантра" />
+        <link rel="apple-touch-icon" href="/icons/apple-touch-icon.svg" />
+
+        <!-- Шрифты -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Bad+Script&family=Great+Vibes&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
             rel="stylesheet"
         />
-        <link rel="icon" type="image/svg+xml" href="/icons/favicon-light.svg" />
+
+        <!-- Фавиконки: светлая и тёмная -->
+        <link
+            rel="icon"
+            type="image/svg+xml"
+            href="/icons/favicon-light.svg"
+            media="(prefers-color-scheme: light)"
+        />
+        <link
+            rel="icon"
+            type="image/svg+xml"
+            href="/icons/favicon-dark.svg"
+            media="(prefers-color-scheme: dark)"
+        />
+
         <link rel="canonical" href="https://mahamantra.online/" />
-        <!-- СТИЛИ (светлая тема по умолчанию) -->
-        <link id="themeStylesheet" rel="stylesheet" href="style2.css" />
-        
-        <!-- Структурированные данные для поисковиков -->
+
+        <!-- Единый CSS -->
+        <link rel="stylesheet" href="style.css" />
+
+        <!-- Structured Data -->
         <script type="application/ld+json">
-        {
-          "@context": "https://schema.org",
-          "@type": "WebApplication",
-          "name": "Харе Кришна Маха-мантра онлайн",
-          "alternateName": "Hare Krishna Maha-Mantra online",
-          "url": "https://mahamantra.online",
-          "description": "Маха-мантра онлайн с переводами на многие языки и счетчиком джапы",
-          "inLanguage": ["ru", "en", "es", "de", "uk", "sr", "hr", "sl", "be", "cs", "nl", "lt", "lv", "ka", "el", "ko", "hu", "tl", "tr", "pl", "ja", "bn", "gu", "pa", "or", "ta", "ml", "kn", "zh", "te", "hi", "mk"],
-          "applicationCategory": "SpiritualityApplication",
-          "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-          }
-        }
+            {
+                "@context": "https://schema.org",
+                "@type": "WebApplication",
+                "name": "Харе Кришна Маха-мантра онлайн",
+                "alternateName": "Hare Krishna Maha-Mantra online",
+                "url": "https://mahamantra.online",
+                "description": "Маха-мантра онлайн с переводами на многие языки и счетчиком джапы",
+                "inLanguage": [
+                    "ru",
+                    "en",
+                    "es",
+                    "de",
+                    "uk",
+                    "sr",
+                    "hr",
+                    "sl",
+                    "be",
+                    "cs",
+                    "nl",
+                    "lt",
+                    "lv",
+                    "ka",
+                    "el",
+                    "ko",
+                    "hu",
+                    "tl",
+                    "tr",
+                    "pl",
+                    "ja",
+                    "bn",
+                    "gu",
+                    "pa",
+                    "or",
+                    "ta",
+                    "ml",
+                    "kn",
+                    "zh",
+                    "te",
+                    "hi",
+                    "mk"
+                ],
+                "applicationCategory": "LifestyleApplication",
+                "operatingSystem": "All",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD"
+                }
+            }
         </script>
     </head>
+
     <body>
         <!-- ░░ ШАПКА ░░ -->
         <div class="panel">
             <!-- счётчик -->
             <div class="counter ellipse">
-                <!-- Сударшана-чакра, 24×24 -->
+                <!-- Сударшана-чакра -->
                 <svg
                     class="icon"
                     viewBox="0 0 24 24"
@@ -65,27 +130,28 @@
                     stroke-width="1"
                     stroke-linecap="round"
                     stroke-linejoin="round"
+                    aria-hidden="true"
                 >
-                    <!-- внешнее кольцо -->
                     <circle cx="12" cy="12" r="9" />
-                    <!-- внутреннее кольцо -->
                     <circle cx="12" cy="12" r="4" />
-                    <!-- 8 лезвий (шипы) -->
-                    <path d="M12 2 v3" />
-                    <path d="M12 19 v3" />
-                    <path d="M2 12 h3" />
-                    <path d="M19 12 h3" />
-                    <path d="M5 5 l2.1 2.1" />
-                    <path d="M16.9 16.9 l2.1 2.1" />
-                    <path d="M5 19 l2.1-2.1" />
-                    <path d="M16.9 7.1 l2.1-2.1" />
+                    <path d="M12 2v3" />
+                    <path d="M12 19v3" />
+                    <path d="M2 12h3" />
+                    <path d="M19 12h3" />
+                    <path d="M5 5l2.1 2.1" />
+                    <path d="M16.9 16.9l2.1 2.1" />
+                    <path d="M5 19l2.1-2.1" />
+                    <path d="M16.9 7.1l2.1-2.1" />
                 </svg>
                 <span id="roundsVal" class="counter-num">1</span>
+
+                <!-- Чётки -->
                 <svg
                     class="icon"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
+                    aria-hidden="true"
                 >
                     <circle cx="12" cy="4" r="2" />
                     <circle cx="16" cy="6" r="2" />
@@ -113,18 +179,30 @@
 
             <!-- скорость + тема -->
             <div class="controls">
-                <button id="dec" class="circle">−</button>
-                <span id="spdText" class="spd-text">6 с</span>
-                <button id="inc" class="circle">+</button>
-                <button id="theme" class="circle">
-                    <!-- Луна -->
-                    <svg id="moon" class="icon" viewBox="0 0 24 24">
+                <button id="dec" class="circle" aria-label="Уменьшить скорость">
+                    −
+                </button>
+                <span id="spdText" class="spd-text">4.5</span>
+                <button id="inc" class="circle" aria-label="Увеличить скорость">
+                    +
+                </button>
+                <button id="theme" class="circle" aria-label="Сменить тему">
+                    <svg
+                        id="moon"
+                        class="icon"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                    >
                         <path
                             d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
                         />
                     </svg>
-                    <!-- Солнце -->
-                    <svg id="sun" class="icon hidden" viewBox="0 0 24 24">
+                    <svg
+                        id="sun"
+                        class="icon hidden"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                    >
                         <circle cx="12" cy="12" r="5" />
                         <line x1="12" y1="1" x2="12" y2="3" />
                         <line x1="12" y1="21" x2="12" y2="23" />
@@ -137,8 +215,9 @@
                     </svg>
                 </button>
             </div>
+
             <!-- язык -->
-            <select id="langSel" class="ellipse">
+            <select id="langSel" class="ellipse" aria-label="Выбор языка">
                 <option value="en">🇺🇸 English</option>
                 <option value="es">🇪🇸 Español</option>
                 <option value="de">🇩🇪 Deutsch</option>
@@ -177,26 +256,37 @@
         <!-- intro -->
         <div id="intro" class="intro hidden"></div>
 
+        <!-- орнамент-полоска (только ПК, ≥1024px) -->
+        <div class="ornament">
+            <img src="icons/ornament.svg" alt="" aria-hidden="true" />
+        </div>
+
         <!-- кнопки +/− шрифта (ПК) -->
         <div class="font-ctrl" id="fontCtrl">
-            <button id="fInc" class="f-btn">+</button>
-            <button id="fDec" class="f-btn">−</button>
+            <button id="fInc" class="f-btn" aria-label="Увеличить шрифт">
+                +
+            </button>
+            <button id="fDec" class="f-btn" aria-label="Уменьшить шрифт">
+                −
+            </button>
         </div>
         <div id="triggerArea"></div>
 
         <!-- мантра -->
-        <div class="centered"><div id="waviy" class="waviy"></div></div>
+        <div class="centered">
+            <div class="waviy-wrap">
+                <div id="waviy" class="waviy"></div>
+            </div>
+        </div>
 
-        <!-- ИКОНКА-ПАУЗЫ -->
-        <div id="pauseBadge" class="pause-badge hidden">
-            <!-- простое «⏸» в SVG, чтобы рендер был идеально гладким -->
-            <svg viewBox="0 0 64 64" aria-hidden="true">
+        <!-- иконка паузы -->
+        <div id="pauseBadge" class="pause-badge hidden" aria-hidden="true">
+            <svg viewBox="0 0 64 64">
                 <rect x="16" y="14" width="10" height="36" rx="2" />
                 <rect x="38" y="14" width="10" height="36" rx="2" />
             </svg>
         </div>
 
-        <!-- ЛОГИКА -->
         <script src="app.js"></script>
     </body>
 </html>

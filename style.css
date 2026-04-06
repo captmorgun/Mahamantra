@@ -1,29 +1,507 @@
-/* style.css – тёмная тема */
-@import url("style2.css"); /* ← сначала базовый (светлый) стиль */
+/* ═══════════════════════════════════════════════════════════
+   Mahamantra.online — единый стиль (светлая + тёмная тема)
+   ═══════════════════════════════════════════════════════════ */
 
+/* ── переменные: СВЕТЛАЯ тема (по умолчанию) ── */
 :root {
-    --btn-bg: #444; /* тёмная кнопка */
-    --btn-fg: #fff; /* светлая иконка/текст */
+    --panel-h: 68px;
+    --btn-bg: rgba(0, 0, 0, 0.07);
+    --btn-bg-hover: rgba(0, 0, 0, 0.12);
+    --btn-fg: #1a1a1a;
+    --bg: #f5f5f7;
+    --text: #1a1a1a;
+    --accent: #d94215;
+    --reflect-alpha: 0.08;
+    --pause-bg: rgba(128, 128, 128, 0.2);
+    --pause-fill: #999;
+    --speed: 6s;
+    --step: 0.375s;
+    --base-clamp: clamp(30px, max(5vw, 7vmin), 100px);
+    --scale: 1;
+    --fz-base: calc(var(--base-clamp) * var(--scale));
+    --transition-theme: background 0.4s ease, color 0.4s ease;
 }
-body {
-    //background: #151719;
-    //background: #202124;
-    background: #2d3337;
-} /* почти-чёрный фон */
 
-.waviy span,
-.intro {
-    color: #fff;
-} /* буквы светлые */
+/* ── ТЁМНАЯ тема ── */
+body.dark {
+    --btn-bg: rgba(255, 255, 255, 0.12);
+    --btn-bg-hover: rgba(255, 255, 255, 0.18);
+    --btn-fg: #eee;
+    --bg: #1e2226;
+    --text: #f0f0f0;
+    --accent: #f5a623;
+    --reflect-alpha: 0.05;
+    --pause-bg: rgba(255, 255, 255, 0.12);
+    --pause-fill: #aaa;
+}
+
+/* ── базовые ресеты ── */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    font-family: "Great Vibes", cursive;
+    transition: var(--transition-theme);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── скрытый H1 для SEO ── */
+.visually-hidden {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════════════
+   КНОПКИ
+   ═══════════════════════════════════════════════════ */
+.circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+.circle:hover {
+    background: var(--btn-bg-hover);
+}
+.circle:active {
+    transform: scale(0.92);
+}
+.circle svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+}
+
+.ellipse {
+    height: 48px;
+    width: auto;
+    min-width: 100px;
+    padding: 0 18px;
+    border-radius: 24px;
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 16px;
+    transition: background 0.2s ease;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+.ellipse:hover {
+    background: var(--btn-bg-hover);
+}
+.ellipse svg {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.counter-num {
+    font-size: 22px;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    min-width: 1.2em;
+    text-align: center;
+}
+
+/* ═══════════════════════════════════════════════════
+   ШАПКА
+   ═══════════════════════════════════════════════════ */
+.panel {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    z-index: 20;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    white-space: nowrap;
+}
+.controls {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+.spd-text {
+    font-size: 26px;
+    font-style: normal;
+    text-align: center;
+    min-width: 3ch;
+    /* плавное появление/скрытие */
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+}
+
+.counter {
+    margin-right: 12px;
+}
+#langSel {
+    margin-left: 12px;
+    flex: 0 0 auto;
+}
+
+/* ── плавное скрытие элементов ── */
+.hidden {
+    display: none !important;
+}
+
+/* для элементов, которые должны плавно пропадать */
+.fade-target {
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+}
+.fade-target.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════
+   ПАУЗА
+   ═══════════════════════════════════════════════════ */
+.userPaused .w,
+.userPaused .waviy span {
+    animation-play-state: paused !important;
+}
+
+.pause-badge {
+    position: fixed;
+    bottom: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 64px;
+    height: 64px;
+    background: var(--pause-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 1;
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+    z-index: 15;
+}
+.pause-badge svg {
+    width: 34px;
+    height: 34px;
+    fill: var(--pause-fill);
+}
+.pause-badge.hidden {
+    opacity: 0;
+    transform: translate(-50%, 20px) scale(0.8);
+}
+
+/* ═══════════════════════════════════════════════════
+   ВОЛНА (анимация слов)
+   ═══════════════════════════════════════════════════ */
+.w {
+    display: inline-block;
+    margin-right: 0.3em;
+    animation-name: wave;
+    animation-duration: var(--speed);
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+}
 
 @keyframes wave {
     0%,
     15%,
     100% {
         transform: scale(1);
+        color: var(--text);
     }
     10% {
-        transform: scale(1.3);
-        color: orange;
+        transform: scale(1.25);
+        color: var(--accent);
     }
+}
+
+/* ═══════════════════════════════════════════════════
+   ОРНАМЕНТ (полоска под шапкой, не влияет на layout)
+   ═══════════════════════════════════════════════════ */
+.ornament {
+    position: fixed;
+    top: calc(var(--panel-h) + 6px);
+    left: 0;
+    right: 0;
+    text-align: center;
+    pointer-events: none;
+    user-select: none;
+    z-index: 18;
+}
+.ornament img {
+    display: block;
+    margin: 0 auto;
+    width: min(75%, 950px);
+    height: auto;
+    opacity: 0.4;
+    transition:
+        opacity 0.4s ease,
+        filter 0.4s ease;
+}
+body.dark .ornament img {
+    opacity: 0.35;
+    filter: invert(1);
+}
+
+@media (max-width: 767px) {
+    .ornament img {
+        width: 80%;
+    }
+}
+
+/* ═══════════════════════════════════════════════════
+   МАНТРА (центр)
+   ═══════════════════════════════════════════════════ */
+.centered {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.waviy {
+    font-size: var(--fz-base);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.3;
+    white-space: normal;
+    color: var(--text);
+    /* зеркальное отражение (Chrome, Safari, Edge) */
+    -webkit-box-reflect: below -2px
+        linear-gradient(transparent, transparent 60%, rgba(255, 255, 255, 0.08));
+}
+body.dark .waviy {
+    -webkit-box-reflect: below -2px
+        linear-gradient(transparent, transparent 55%, rgba(255, 255, 255, 0.12));
+}
+/* кросс-браузерное отражение через псевдоэлемент */
+.waviy-wrap {
+    position: relative;
+}
+
+.waviy > div {
+    white-space: nowrap;
+}
+.waviy.paused span {
+    animation-play-state: paused;
+    opacity: 0;
+}
+.waviy .w {
+    animation-delay: calc(var(--step) * var(--i));
+}
+
+/* ═══════════════════════════════════════════════════
+   INTRO (панча-таттва мантра)
+   ═══════════════════════════════════════════════════ */
+.intro {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: var(--fz-base);
+    text-align: center;
+    pointer-events: none;
+    white-space: normal;
+    line-height: 1.3;
+    display: flex;
+    flex-direction: column;
+    color: var(--text);
+}
+.intro div {
+    display: inline-block;
+    white-space: nowrap;
+}
+.intro .w {
+    animation-delay: var(--delay);
+    animation-duration: 10s;
+}
+
+/* ═══════════════════════════════════════════════════
+   ПАНЕЛЬ МАСШТАБА (ПК)
+   ═══════════════════════════════════════════════════ */
+#triggerArea {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 300px;
+    height: 300px;
+    z-index: 10;
+    pointer-events: auto;
+}
+
+@media (min-width: 1024px) {
+    .font-ctrl {
+        position: fixed;
+        right: 40px;
+        bottom: 40px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+        z-index: 2000;
+    }
+    .font-ctrl.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    .f-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: none;
+        background: var(--btn-bg);
+        color: var(--btn-fg);
+        font-size: 24px;
+        cursor: pointer;
+        transition:
+            background 0.2s ease,
+            transform 0.15s ease;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+    .f-btn:hover {
+        background: var(--btn-bg-hover);
+    }
+    .f-btn:active {
+        transform: scale(0.92);
+    }
+}
+
+/* ═══════════════════════════════════════════════════
+   АДАПТИВ
+   ═══════════════════════════════════════════════════ */
+@media (max-width: 1023px) and (orientation: landscape) {
+    .font-ctrl {
+        display: none;
+    }
+    .intro,
+    .centered {
+        padding-top: var(--panel-h);
+    }
+}
+
+@media (max-width: 767px) and (orientation: portrait) {
+    .font-ctrl {
+        display: none;
+    }
+
+    #langSel {
+        font-size: 20px;
+        min-width: 60px;
+        width: 60px;
+        padding: 0 10px;
+        overflow: hidden;
+        text-overflow: clip;
+        white-space: nowrap;
+    }
+    .controls {
+        gap: 0;
+    }
+}
+
+/* ═══════════════════════════════════════════════════
+   МЕЛКИЕ ВИЗУАЛЬНЫЕ ДЕТАЛИ
+   ═══════════════════════════════════════════════════ */
+
+/* анимация появления при загрузке */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.panel {
+    animation: fadeIn 0.6s ease both;
+}
+.waviy {
+    animation: fadeIn 0.8s ease 0.2s both;
+}
+
+/* плавный скролл если нужен */
+html {
+    scroll-behavior: smooth;
+}
+
+/* убираем outline для мыши, оставляем для клавиатуры */
+:focus:not(:focus-visible) {
+    outline: none;
+}
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* select стилизация */
+#langSel {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23666' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 32px;
+    font-family:
+        system-ui,
+        -apple-system,
+        sans-serif;
+}
+body.dark #langSel {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23ccc' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
 }
