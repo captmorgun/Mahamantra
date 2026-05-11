@@ -1,7 +1,7 @@
 /* Service Worker — Mahamantra.online
    Стратегия: cache-first для статики, network-first для JSON */
 
-const CACHE = "mahamantra-v4";
+const CACHE = "mahamantra-v5";
 const STATIC = [
   "/",
   "/index.html",

@@ -298,7 +298,7 @@ body.dark .ornament img {
     }
 }
 
-@media (max-width: 1023px) and (max-height: 500px) and (orientation: landscape) {
+@media (max-width: 1023px) and (orientation: landscape) {
     .ornament {
         display: none;
     }
