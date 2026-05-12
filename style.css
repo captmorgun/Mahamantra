@@ -458,6 +458,15 @@ body.dark .waviy {
     .controls {
         gap: 0;
     }
+    .counter.ellipse {
+        gap: 0;
+    }
+    .counter .counter-num {
+        min-width: auto;
+    }
+    .counter .counter-num:not(:last-child) {
+        margin-right: 8px;
+    }
 }
 
 /* ═══════════════════════════════════════════════════
