@@ -368,17 +368,21 @@
     /* ПАНЧА */
     if (!panchaStr) return false;
 
-    const limits = [4, 2, 3, 4];
     const ps = panchaStr.split(/\s+/).filter(Boolean);
-    const rows = [];
-    let r = 0, buf = [];
-    for (let i = 0; i < ps.length; i++) {
-      buf.push(ps[i]);
-      if (buf.length === limits[r] || i === ps.length - 1) {
-        rows.push(buf.join(" "));
-        buf = [];
-        r++;
-        if (r >= limits.length) break;
+    let rows = panchaStr.split(/\n+/).map((line) => line.trim()).filter(Boolean);
+
+    if (rows.length <= 1) {
+      const limits = [4, 2, 3, 4];
+      rows = [];
+      let r = 0, buf = [];
+      for (let i = 0; i < ps.length; i++) {
+        buf.push(ps[i]);
+        if (buf.length === limits[r] || i === ps.length - 1) {
+          rows.push(buf.join(" "));
+          buf = [];
+          r++;
+          if (r >= limits.length) break;
+        }
       }
     }
 
