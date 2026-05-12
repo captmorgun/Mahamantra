@@ -333,7 +333,10 @@ body.dark .waviy {
 }
 /* кросс-браузерное отражение через псевдоэлемент */
 .waviy-wrap {
+    --mantra-scale: 1;
     position: relative;
+    transform: scale(var(--mantra-scale));
+    transform-origin: center center;
 }
 
 .waviy > div {

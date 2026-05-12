@@ -131,6 +131,32 @@
     });
   }
 
+  function fitMantra() {
+    if (!waviy) return;
+
+    const mantraBox = waviy.parentElement || waviy;
+    mantraBox.style.setProperty("--mantra-scale", "1");
+
+    requestAnimationFrame(() => {
+      const viewport = window.visualViewport || document.documentElement;
+      const viewportWidth = viewport.width || document.documentElement.clientWidth || window.innerWidth;
+      const viewportHeight = viewport.height || document.documentElement.clientHeight || window.innerHeight;
+      const isPortrait = viewportHeight >= viewportWidth;
+
+      if (curLang !== "hy" || !isPortrait) return;
+
+      const availableWidth = Math.max(0, viewportWidth - 24);
+      const availableHeight = Math.max(0, viewportHeight - 24);
+      const textWidth = waviy.scrollWidth || waviy.offsetWidth;
+      const textHeight = waviy.scrollHeight || waviy.offsetHeight;
+
+      if (!availableWidth || !availableHeight || !textWidth || !textHeight) return;
+
+      const scale = Math.min(1, availableWidth / textWidth, availableHeight / textHeight);
+      mantraBox.style.setProperty("--mantra-scale", Math.max(0.1, scale).toFixed(3));
+    });
+  }
+
   function hideIntro() {
     intro.classList.add("hidden");
     waviy.classList.remove("paused");
@@ -138,6 +164,7 @@
     introRestMS  = 0;
     setSpeedCtrlsVisible(true);
     resetWave();
+    fitMantra();
     updateCounter();
   }
 
@@ -291,6 +318,8 @@
       "--scale",
       Math.max(0.5, Math.min(v, 3))
     );
+    fitMantra();
+    fitIntro();
   }
   $("fInc").onclick = () => setScale(getScale() + 0.2);
   $("fDec").onclick = () => setScale(getScale() - 0.2);
@@ -388,6 +417,7 @@
 
     waviy.innerHTML = rowsHTML.join("");
     hook();
+    fitMantra();
 
     /* ПАНЧА */
     if (!panchaStr) return false;
@@ -425,11 +455,23 @@
     return intro.innerHTML !== prevIntroHTML;
   }
 
-  window.addEventListener("resize", fitIntro);
-  window.addEventListener("orientationchange", fitIntro);
-  if (window.visualViewport) window.visualViewport.addEventListener("resize", fitIntro);
+  window.addEventListener("resize", () => {
+    fitIntro();
+    fitMantra();
+  });
+  window.addEventListener("orientationchange", () => {
+    fitIntro();
+    fitMantra();
+  });
+  if (window.visualViewport) window.visualViewport.addEventListener("resize", () => {
+    fitIntro();
+    fitMantra();
+  });
   if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(fitIntro).catch(() => {});
+    document.fonts.ready.then(() => {
+      fitIntro();
+      fitMantra();
+    }).catch(() => {});
   }
 
   /* ── смена языка ── */
