@@ -102,9 +102,33 @@
     intro.classList.remove("hidden");
     waviy.classList.add("paused");
     setSpeedCtrlsVisible(false);
+    fitIntro();
 
     introEndStamp = Date.now() + INTRO_MS;
     introTimerId  = setTimeout(hideIntro, INTRO_MS);
+  }
+
+  function fitIntro() {
+    if (!intro || intro.classList.contains("hidden")) return;
+
+    intro.style.setProperty("--intro-scale", "1");
+
+    requestAnimationFrame(() => {
+      if (intro.classList.contains("hidden")) return;
+
+      const viewport = window.visualViewport || document.documentElement;
+      const viewportWidth = viewport.width || document.documentElement.clientWidth || window.innerWidth;
+      const viewportHeight = viewport.height || document.documentElement.clientHeight || window.innerHeight;
+      const availableWidth = Math.max(0, viewportWidth - 24);
+      const availableHeight = Math.max(0, viewportHeight - 24);
+      const textWidth = intro.scrollWidth || intro.offsetWidth;
+      const textHeight = intro.scrollHeight || intro.offsetHeight;
+
+      if (!availableWidth || !availableHeight || !textWidth || !textHeight) return;
+
+      const scale = Math.min(1, availableWidth / textWidth, availableHeight / textHeight);
+      intro.style.setProperty("--intro-scale", Math.max(0.1, scale).toFixed(3));
+    });
   }
 
   function hideIntro() {
@@ -397,7 +421,15 @@
       }).join(" ");
 
     intro.innerHTML = rows.map((l) => "<div>" + makeLine(l) + "</div>").join("");
+    fitIntro();
     return intro.innerHTML !== prevIntroHTML;
+  }
+
+  window.addEventListener("resize", fitIntro);
+  window.addEventListener("orientationchange", fitIntro);
+  if (window.visualViewport) window.visualViewport.addEventListener("resize", fitIntro);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(fitIntro).catch(() => {});
   }
 
   /* ── смена языка ── */

@@ -351,10 +351,12 @@ body.dark .waviy {
    INTRO (панча-таттва мантра)
    ═══════════════════════════════════════════════════ */
 .intro {
+    --intro-scale: 1;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(var(--intro-scale));
+    transform-origin: center center;
     font-size: var(--fz-base);
     text-align: center;
     pointer-events: none;
