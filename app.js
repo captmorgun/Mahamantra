@@ -16,8 +16,8 @@
   };
 
   /* ── глобальное состояние ── */
-  let beads          = 1;
-  let rounds         = 1;
+  let beads          = 0;
+  let rounds         = 0;
   let userPaused     = false;
   let introRestMS    = 0;
   let guardId        = null;
@@ -62,12 +62,13 @@
 
   function onIter() {
     if (introVisible) return;
-    if (++beads > 108) {
-      beads = 1;
+    beads++;
+    updateCounter();
+    if (beads >= 108) {
+      beads = 0;
       rounds++;
       showIntro();
     }
-    updateCounter();
   }
 
   /* ══════════════════════════════════════════════
