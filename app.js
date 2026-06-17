@@ -117,12 +117,10 @@
     requestAnimationFrame(() => {
       if (intro.classList.contains("hidden")) return;
 
-      const viewport = window.visualViewport || document.documentElement;
-      const viewportWidth = viewport.width || document.documentElement.clientWidth || window.innerWidth;
-      const viewportHeight = viewport.height || document.documentElement.clientHeight || window.innerHeight;
-      const availableWidth = Math.max(0, viewportWidth - 24);
-      const availableHeight = Math.max(0, viewportHeight - 24);
-      const textWidth = intro.scrollWidth || intro.offsetWidth;
+      const wrap = intro.parentElement;
+      const availableWidth  = (wrap ? wrap.offsetWidth  : window.innerWidth)  * 0.84;
+      const availableHeight = (wrap ? wrap.offsetHeight : window.innerHeight) * 0.75;
+      const textWidth  = intro.scrollWidth  || intro.offsetWidth;
       const textHeight = intro.scrollHeight || intro.offsetHeight;
 
       if (!availableWidth || !availableHeight || !textWidth || !textHeight) return;
@@ -136,19 +134,13 @@
     if (!waviy) return;
 
     const mantraBox = waviy.parentElement || waviy;
+    const wrap = mantraBox.parentElement;
     mantraBox.style.setProperty("--mantra-scale", "1");
 
     requestAnimationFrame(() => {
-      const viewport = window.visualViewport || document.documentElement;
-      const viewportWidth = viewport.width || document.documentElement.clientWidth || window.innerWidth;
-      const viewportHeight = viewport.height || document.documentElement.clientHeight || window.innerHeight;
-      const isPortrait = viewportHeight >= viewportWidth;
-
-      if (curLang !== "hy" || !isPortrait) return;
-
-      const availableWidth = Math.max(0, viewportWidth - 24);
-      const availableHeight = Math.max(0, viewportHeight - 24);
-      const textWidth = waviy.scrollWidth || waviy.offsetWidth;
+      const availableWidth  = (wrap ? wrap.offsetWidth  : window.innerWidth)  * 0.84;
+      const availableHeight = (wrap ? wrap.offsetHeight : window.innerHeight) * 0.75;
+      const textWidth  = waviy.scrollWidth  || waviy.offsetWidth;
       const textHeight = waviy.scrollHeight || waviy.offsetHeight;
 
       if (!availableWidth || !availableHeight || !textWidth || !textHeight) return;

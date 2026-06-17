@@ -274,14 +274,21 @@ body {
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    padding-top: calc(var(--panel-h) + 10px);
+}
+
+.frame-wrap {
+    position: relative;
+    width: min(calc(100% - 32px), calc((100vh - var(--panel-h) - 26px) * 1.609));
+    aspect-ratio: 1591 / 989;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .mantra-frame {
     position: absolute;
-    top: calc(var(--panel-h) + 18px);
-    left: clamp(16px, 3.5vw, 56px);
-    right: clamp(16px, 3.5vw, 56px);
-    bottom: clamp(18px, 4vh, 64px);
+    inset: 0;
     z-index: 0;
     pointer-events: none;
     user-select: none;
@@ -420,13 +427,6 @@ body.dark .waviy {
 @media (max-width: 1023px) and (orientation: landscape) {
     .font-ctrl {
         display: none;
-    }
-    .mantra-frame {
-        display: none;
-    }
-    .intro,
-    .centered {
-        padding-top: var(--panel-h);
     }
 }
 
