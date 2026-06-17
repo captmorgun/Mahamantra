@@ -265,54 +265,36 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════
-   ОРНАМЕНТ (полоска под шапкой, не влияет на layout)
-   ═══════════════════════════════════════════════════ */
-.ornament {
-    position: fixed;
-    top: calc(var(--panel-h) + 6px);
-    left: 0;
-    right: 0;
-    text-align: center;
-    pointer-events: none;
-    user-select: none;
-    z-index: 18;
-}
-.ornament img {
-    display: block;
-    margin: 0 auto;
-    width: min(75%, 950px);
-    height: auto;
-    opacity: 0.4;
-    transition:
-        opacity 0.4s ease,
-        filter 0.4s ease;
-}
-body.dark .ornament img {
-    opacity: 0.35;
-    filter: invert(1);
-}
-
-@media (max-width: 767px) {
-    .ornament img {
-        width: 80%;
-    }
-}
-
-@media (max-width: 1023px) and (orientation: landscape) {
-    .ornament {
-        display: none;
-    }
-}
-
-/* ═══════════════════════════════════════════════════
    МАНТРА (центр)
    ═══════════════════════════════════════════════════ */
 .centered {
+    position: relative;
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
+}
+
+.mantra-frame {
+    position: absolute;
+    top: calc(var(--panel-h) + 18px);
+    left: clamp(16px, 3.5vw, 56px);
+    right: clamp(16px, 3.5vw, 56px);
+    bottom: clamp(18px, 4vh, 64px);
+    z-index: 0;
+    pointer-events: none;
+    user-select: none;
+    background: url("icons/mantra-frame.png") center / 100% 100% no-repeat;
+    opacity: 0.24;
+    filter: brightness(0);
+    transition:
+        opacity 0.4s ease,
+        filter 0.4s ease;
+}
+body.dark .mantra-frame {
+    opacity: 0.7;
+    filter: none;
 }
 
 .waviy {
@@ -335,6 +317,7 @@ body.dark .waviy {
 .waviy-wrap {
     --mantra-scale: 1;
     position: relative;
+    z-index: 1;
     transform: scale(var(--mantra-scale));
     transform-origin: center center;
 }
@@ -436,6 +419,9 @@ body.dark .waviy {
    ═══════════════════════════════════════════════════ */
 @media (max-width: 1023px) and (orientation: landscape) {
     .font-ctrl {
+        display: none;
+    }
+    .mantra-frame {
         display: none;
     }
     .intro,

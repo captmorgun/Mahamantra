@@ -1,7 +1,7 @@
 /* Service Worker — Mahamantra.online
    Стратегия: cache-first для статики, network-first для JSON */
 
-const CACHE = "mahamantra-v10";
+const CACHE = "mahamantra-v12";
 const STATIC = [
   "/",
   "/index.html",
@@ -10,7 +10,7 @@ const STATIC = [
   "/translations.json",
   "/icons/favicon-light.svg",
   "/icons/favicon-dark.svg",
-  "/icons/ornament.png",
+  "/icons/mantra-frame.png",
 ];
 
 /* install: предзагрузка статики */
